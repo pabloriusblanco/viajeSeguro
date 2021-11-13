@@ -1,0 +1,160 @@
+.padding_left0 {
+    padding-left: 0 !important;
+}
+
+.padding_left30 {
+    padding-left: 30px !important;
+}
+
+.padding_right5 {
+    padding-right: 5px !important;
+}
+
+.width_100 {
+    width: 100% !important;
+}
+
+.padding_30{
+    padding: 30px !important;
+}
+
+.status_confirmed {
+    font-weight: 600;
+    color: #39db5c;
+}
+
+.status_pending {
+    font-weight: 600;
+    color: rgb(235, 17, 151);
+}
+
+.status_awaiting {
+    font-weight: 600;
+    color: rgb(235, 159, 17);
+}
+
+.status_cancelled {
+    font-weight: 600;
+    color: rgb(235, 17, 17);
+}
+
+
+
+
+//alerts
+
+.alert {
+    opacity: 0;
+    z-index: 999;
+}
+
+//loader
+
+.loader_show {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    opacity: 0.75;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+}
+
+.loader_hide {
+    position: fixed;
+    display: none;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    opacity: 0.75;
+    width: 100vw;
+    height: 100vh;
+    z-index: 10000;
+}
+
+.wrapper_blur {
+    filter: blur(6px);
+}
+
+.form_grid_viajeSeguro {
+    display: grid;
+    grid-gap: 12px;
+    grid-template-columns: repeat(12, 1fr);
+
+    div {
+        grid-column: span 2;
+    }
+
+    .date_filter {
+        grid-column: span 4;
+    }
+
+    .button_filter {
+        grid-column: span 8;
+    }
+
+    @media (max-width: 1440px) {
+        div {
+            grid-column: span 4;
+        }
+
+        .date_filter {
+            grid-column: span 4;
+        }
+
+        .button_filter {
+            grid-column: span 12;
+        }
+    }
+
+    @media (max-width: 1023px) {
+        div {
+            grid-column: span 6;
+        }
+
+        .date_filter {
+            grid-column: span 6;
+        }
+
+        .button_filter {
+            grid-column: span 6;
+        }
+    }
+
+    @media (max-width: 767px) {
+        div {
+            grid-column: span 12;
+        }
+
+        .date_filter {
+            grid-column: span 12;
+        }
+
+        .button_filter {
+            grid-column: span 12;
+            justify-content: center;
+        }
+    }
+}
+
+.fas {
+    transition: all 0.3s ease-in-out;
+}
+
+.rotate180 {
+    transform: rotate(180deg);
+}
+
+.sidebarLogo {
+    width: 80%;
+}
+
+.footerSP {
+    color: #1dbe15;
+}
+
+.bold {
+    font-weight: 600;
+}

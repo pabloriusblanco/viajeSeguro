@@ -1,0 +1,78 @@
+﻿<div class="col-md-12">
+    <div class="card">
+        <div class="card-body padding_30">
+            @using (Html.BeginForm())
+            {
+
+                <div class="mb-0 form_grid_viajeSeguro">
+                    <div class="form-group form-check-inline text-truncate mb-0 mr-0">
+                        <label for="busquedaCodigo" class="mr-4">Reserva</label>
+                        @Html.TextBox("Codigo","", new { @class = "form-control", @placeholder = "Código de Reserva...", @autocomplete = "off" })
+                    </div>
+                    <div class="form-group form-check-inline text-truncate mb-0 mr-0">
+                        <label for="Apellido" class="mr-4">Titular</label>
+                        @Html.TextBox("Apellido", "", new { @class = "form-control", @placeholder = "Titular Tarjeta...", @autocomplete = "off" })
+                    </div>
+                    <div class="form-group form-check-inline mb-0 mr-0">
+                        <label for="state_form" class="mr-4">Pago</label>
+                        <select class="form-control selectpicker" Id="state_form" name="state_form" disabled
+                                title="Seleccione...">
+                            <option value='' class="bold">Todos</option>
+                            <option value='1'>Procesando</option>
+                            <option value='2'>Aceptada</option>
+                            <option value='3'>Rechazada</option>
+                        </select>
+
+                    </div>
+                    <div class="form-group form-check-inline mb-0 mr-8 date_filter">
+                        <label class="label-control mr-4">Fecha</label>
+                        <input disabled type="text" class="form-control datetimepicker mr-2" placeholder="Desde..."
+                               Id='dateFrom_form' name='dateFrom_form' />
+
+                        <input disabled type="text" class="form-control datetimepicker" placeholder="Hasta..."
+                               Id='dateTo_form' name='dateTo_form' />
+                    </div>
+
+
+                    <div class="form-group form-check-inline text-truncate mb-0">
+                        <label  for="PlanCode_form" class="mr-4">Plan</label>
+                        <input disabled type="text" class="form-control" Id="PlanCode_form" name="PlanCode_form"
+                               placeholder="Código de Producto...">
+                    </div>
+
+                    <div class="form-group form-check-inline mb-0">
+                        <label for="region_Form" class="mr-4">Destino</label>
+                        <select class="form-control selectpicker" Id="region_Form" name="region_Form"
+                                title="Seleccione..." disabled>
+                            <option value='' class="bold">Todas las regiones</option>
+                            <option value='1'>América del Norte</option>
+                            <option value='2'>Europa</option>
+                            <option value='3'>América Central</option>
+                            <option value='4'>América del Sur</option>
+                            <option value='5'>África</option>
+                            <option value='6'>Asia</option>
+                            <option value='7'>Oceania</option>
+                        </select>
+                    </div>
+                    <div class="form-group form-check-inline text-truncate mb-0 total_filter">
+                        <label for="Precio" class="mr-4">Total</label>
+                        @Html.TextBox("Precio", "", new { @class = "form-control", @placeholder = "Precio..", @autocomplete = "off", @type = "number", @min = 1 })
+                    </div>
+                    <div class="form-group form-check-inline text-truncate mb-0 justify-content-end button_filter span">
+                        <button type="submit"
+                                class="btn btn-primary btn-round text-white my-0 mr-2">
+                            <i class="fas fa-search mr-2" style="font-size: 14px;"></i>
+                            Buscar
+                        </button>
+                        <a href="@Url.Action("BorrarFiltros")" class="btn btn-secondary btn-round text-white my-0">
+                            <i class="fas fa-folder-open mr-2" style="font-size: 14px;"></i>
+                            Borrar Filtros
+                        </a>
+                    </div>
+                </div>
+
+            }
+
+        </div>
+    </div>
+</div>

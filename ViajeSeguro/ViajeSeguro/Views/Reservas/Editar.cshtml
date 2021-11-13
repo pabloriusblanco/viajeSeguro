@@ -1,0 +1,33 @@
+﻿@model ReservaCotizacionViewModel
+
+@{
+    ViewData["Title"] = "Editar Reservas";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card padding_30">
+                <div class="text-center">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-between items-align-center">
+                            <div>
+                                <h6 class="card-title text-left mb-0">Editar Reserva <span class="text-primary">@Model.Reserva.Codigo</span></h6>
+                                <p class="mt-2 mb-0" style="font-size: 12px;">Desde acá se podrán realizar de acciones de para modificar reservas de viaje.</p>
+                            </div>
+                            <a href="@Url.Action("Index")" class="btn btn-secondary btn-round text-white my-0 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-arrow-left mr-2" style="font-size: 14px;"></i>
+                                Volver
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @await Html.PartialAsync("~/Views/Reservas/Shared/_ReservaForm.cshtml")
+
+    </div>
+</div>
+

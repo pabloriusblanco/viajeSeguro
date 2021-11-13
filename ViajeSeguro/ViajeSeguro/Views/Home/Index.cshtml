@@ -1,0 +1,161 @@
+﻿@model IndexViewModel;
+
+@{
+    ViewData["Title"] = "VS - Dashboard";
+    Layout = "_Base";
+}
+
+<div class="content">
+    <div class="row">
+
+        @*HEAD CARDS*@
+        <div class="col-md-12 ">
+            <div class="card card-stats padding_30">
+                <div class="card-body p-0">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="statistics">
+                                <div class="info">
+                                    <div class="icon icon-info">
+                                        <i class="fas fa-plane"></i>
+                                    </div>
+                                    <h3 class="info-title">@ViewBag.ReservasTotales</h3>
+                                    <h6 class="stats-title">Reservas Totales</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="statistics">
+                                <div class="info">
+                                    <div class="icon icon-success">
+                                        <i class="fas fa-check"></i>
+                                    </div>
+                                    <h3 class="info-title">@ViewBag.ReservasContradas</h3>
+                                    <h6 class="stats-title">Reservas Contratadas</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="statistics">
+                                <div class="info">
+                                    <div class="icon icon-danger">
+                                        <i class="fas fa-times"></i>
+                                    </div>
+                                    <h3 class="info-title">@ViewBag.ReservasRechazadasCanceladas</h3>
+                                    <h6 class="stats-title">Reservas Canceladas y Rechazadas</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="statistics">
+                                <div class="info">
+                                    <div class="icon icon-success">
+                                        <i class="fas fa-dollar-sign"></i>
+                                    </div>
+                                    <h3 class="info-title"><small>$</small>@ViewBag.ReservasIngresos</h3>
+                                    <h6 class="stats-title">Ingresos Totales</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*GRAPH*@
+        <div class="col-md-12">
+            <div class="card padding_30">
+                <div class="card-header text-center">
+                    <div class="row">
+                        <div class="col-12">
+                            <h6 class="card-title text-left">Reservas por Región</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body d-flex">
+                    <div class="col-5 pl-0">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left table_textContent">
+                                            <img class="mr-4" src="" alt="" height="14">
+                                            [Nombre region]
+                                        </td>
+                                        <td class="text-right table_textContent" id="">
+                                            [Cantidad Reservas]
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left table_textContent">
+                                            <img class="mr-4" src="" alt="" height="14">
+                                            [Nombre region]
+                                        </td>
+                                        <td class="text-right table_textContent" id="">
+                                            [Cantidad Reservas]
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left table_textContent">
+                                            <img class="mr-4" src="" alt="" height="14">
+                                            [Nombre region]
+                                        </td>
+                                        <td class="text-right table_textContent" id="">
+                                            [Cantidad Reservas]
+                                        </td>
+                                    <tr>
+                                        <td class="text-left table_textContent">
+                                            <img class="mr-4" src="" alt="" height="14">
+                                            [Nombre region]
+                                        </td>
+                                        <td class="text-right table_textContent" id="">
+                                            [Cantidad Reservas]
+                                        </td>
+                                    <tr>
+                                        <td class="text-left table_textContent">
+                                            <img class="mr-4" src="" alt="" height="14">
+                                            [Nombre region]
+                                        </td>
+                                        <td class="text-right table_textContent" id="">
+                                            [Cantidad Reservas]
+                                        </td>
+                                    <tr>
+                                        <td class="text-left table_textContent">
+                                            <img class="mr-4" src="" alt="" height="14">
+                                            [Nombre region]
+                                        </td>
+                                        <td class="text-right table_textContent" id="">
+                                            [Cantidad Reservas]
+                                        </td>
+                                    <tr>
+                                        <td class="text-left table_textContent">
+                                            <img class="mr-4" src="" alt="" height="14">
+                                            [Nombre region]
+                                        </td>
+                                        <td class="text-right table_textContent" id="">
+                                            [Cantidad Reservas]
+                                        </td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="col-7 pl-5 pb-4">
+                        <div class="w-100 h-100 bg-dark text-white d-flex align-items-center justify-content-center h3">Grafico?</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body padding_30">
+                    <div class="row">
+                        <div class="col-12">
+                            <h6 class="card-title text-left">Últimas 5 reservas</h6>
+                        </div>
+                    </div>
+                    @await Html.PartialAsync("~/Views/Reservas/Shared/_MainTable.cshtml", Model.Reservas)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

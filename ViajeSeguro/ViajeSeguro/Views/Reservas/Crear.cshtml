@@ -1,0 +1,203 @@
+﻿@model ReservaCotizacionViewModel
+
+@{
+    ViewData["Title"] = "Crear Reservas";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card padding_30">
+                <div class="text-center">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-between items-align-center">
+                            <div>
+                                <h6 class="card-title text-left mb-0">Crear Reservas</h6>
+                                <p class="mt-2 mb-0" style="font-size: 12px;">Desde esta pantalla se podrán realizar de acciones de para crear las reservas de viaje.</p>
+                            </div>
+                            <a href="@Url.Action("Index")" class="btn btn-secondary btn-round text-white my-0 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-arrow-left mr-2" style="font-size: 14px;"></i>
+                                Volver
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        @await Html.PartialAsync("~/Views/Reservas/Shared/_ReservaForm.cshtml")
+
+    </div>
+
+
+</div>
+
+@section scripts {
+    <script>
+
+        let cantidadPasajeros = 1;
+        let currentIndex = 1;
+        let previousSiblingDeleteButtonId = "";
+
+        function agregarPasajero() {         
+            removeSiblingDelete(previousSiblingDeleteButtonId);
+            $("#pasajerosContainer").append(createPasajeroForm(currentIndex));
+            instanciarNewDatePicker(currentIndex);
+            cantidadPasajeros++;
+            currentIndex = cantidadPasajeros;
+        }
+
+        function instanciarNewDatePicker(currentIndex) {
+            let inputId = `#Cotizaciones_${currentIndex}__Pasajero_FechaNacimiento_string`;
+            $(inputId).datetimepicker({
+                date: null,
+                locale: 'es',
+                useCurrent: false,
+                format: 'DD-MM-YYYY',
+                icons: {
+                    time: "fa fa-clock-o",
+                    date: "fa fa-calendar",
+                    up: "fa fa-chevron-up",
+                    down: "fa fa-chevron-down",
+                    previous: 'fa fa-chevron-left',
+                    next: 'fa fa-chevron-right',
+                    today: 'fa fa-screenshot',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-remove'
+                }
+            }).on('dp.change', function (ev) {
+                // console.log( moment($('#dateFrom_form').attr("value")).format('DD/MM/YYYY, h:mm'))
+                // moment($('#dateFrom_form').attr("value")).format('DD/MM/YYYY, h:mm')
+                if (ev.target == $('#dateFrom_form')[0]) {
+                    $('#dateTo_form').datetimepicker('minDate', $('#dateFrom_form').datetimepicker('date'));
+                }
+
+                if (ev.target == $('#dateTo_form')[0]) {
+                    $('#dateFrom_form').datetimepicker('maxDate', $('#dateTo_form').datetimepicker('date'));
+                }
+            });
+
+            if ($('#dateFrom_form').attr("value") != "") {
+                $('#dateFrom_form').val($('#dateFrom_form').attr("value"));
+            }
+
+            if ($('#dateTo_form').attr("value") != "") {
+                $('#dateTo_form').val($('#dateTo_form').attr("value"));
+            }
+        }
+
+        function removeSiblingDelete(deleteButtonId) {
+            if (deleteButtonId != "") {
+                $(`#${deleteButtonId}`).remove();
+            }
+        }
+
+        function eliminarPasajero(idContainer) {
+            cantidadPasajeros--;
+            currentIndex = idContainer;
+            $(`#pasajeroCard${idContainer}`).remove();
+        }
+
+        $('#Reserva_Tarjeta').keyup(function () {
+            var foo = $(this).val().split("-").join(""); // remove hyphens
+            if (foo.length > 0) {
+                foo = foo.match(new RegExp('.{1,4}', 'g')).join("-");
+            }
+            $(this).val(foo);
+        });
+
+
+        function createPasajeroForm(pasajeroNumero) {
+            previousSiblingDeleteButtonId = `deleteButton${pasajeroNumero}`;
+
+            let pasajeroForm = `
+            <div class="card slide-in-right" id="pasajeroCard${pasajeroNumero}">
+                <div class="card-body padding_30">
+                    <div class="text-center">
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-between items-align-center mb-3">
+                                <div>
+                                    <h6 class="card-title text-left mb-0 pasajeroCount">Pasajero</h6>
+                                </div>
+                                <a onclick="eliminarPasajero(${pasajeroNumero})" id="deleteButton${pasajeroNumero}" class="btn btn-danger btn-round text-white my-0 d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-arrow-left mr-2" style="font-size: 14px;"></i>
+                                    Eliminar
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-0">
+                        <div class="d-flex mb-3">
+                            <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                <label class="form-label mr-2" for="Cotizaciones_${pasajeroNumero}__Pasajero_Nombre">Nombre</label>
+                                <input autocomplete="off" class="form-control" data-val="true" data-val-maxlength="Nombre: Por favor ingresar como máximo 255 caracteres" data-val-maxlength-max="255" data-val-minlength="Nombre: Por favor ingresar como mínimo 1 caracter" data-val-minlength-min="1" data-val-required="Nombre: Este campo es requerido" id="Cotizaciones_${pasajeroNumero}__Pasajero_Nombre" maxlength="255" name="Cotizaciones[${pasajeroNumero}].Pasajero.Nombre" placeholder="Nombre Pasajero..." required="required" type="text" value="">
+                            </div>
+                            <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                <label class="form-label mr-2" for="Cotizaciones_${pasajeroNumero}__Pasajero_Apellido">Apellido</label>
+                                <input autocomplete="off" class="form-control" data-val="true" data-val-maxlength="Apellido: Por favor ingresar como máximo 255 caracteres" data-val-maxlength-max="255" data-val-minlength="Apellido: Por favor ingresar como mínimo 1 caracter" data-val-minlength-min="1" data-val-required="Apellido: Este campo es requerido" id="Cotizaciones_${pasajeroNumero}__Pasajero_Apellido" maxlength="255" name="Cotizaciones[${pasajeroNumero}].Pasajero.Apellido" placeholder="Apellido Pasajero..." required="required" type="text" value="">
+                            </div>
+                            <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                <label class="form-label mr-2" for="Cotizaciones_${pasajeroNumero}__Pasajero_Email">Email</label>
+                                <input autocomplete="off" class="form-control" data-val="true" data-val-maxlength="Email: Por favor ingresar como máximo 255 caracteres" data-val-maxlength-max="255" data-val-minlength="Email: Por favor ingresar como mínimo 4 caracteres" data-val-minlength-min="4" data-val-required="Email: Este campo es requerido" id="Cotizaciones_${pasajeroNumero}__Pasajero_Email" maxlength="255" name="Cotizaciones[${pasajeroNumero}].Pasajero.Email" placeholder="Apellido Pasajero..." type="email" value="">
+                            </div>
+                            <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                <label class="form-label mr-2" for="Cotizaciones_${pasajeroNumero}__Pasajero_Telefono">Telefono</label>
+                                <input autocomplete="off" class="form-control" data-val="true" data-val-maxlength="Telefono: Por favor ingresar como máximo 40 números" data-val-maxlength-max="40" data-val-minlength="Telefono: Por favor ingresar como mínimo 4 números" data-val-minlength-min="4" id="Cotizaciones_${pasajeroNumero}__Pasajero_Telefono" maxlength="40" name="Cotizaciones[${pasajeroNumero}].Pasajero.Telefono" placeholder="Telefono..." type="text" value="">
+                            </div>
+                            <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                <label class="form-label mr-2" for="Cotizaciones_${pasajeroNumero}__Pasajero_Movil">Movil</label>
+                                <input autocomplete="off" class="form-control" data-val="true" data-val-maxlength="Movil: Por favor ingresar como máximo 40 números" data-val-maxlength-max="40" data-val-minlength="Movil: Por favor ingresar como mínimo 4 números" data-val-minlength-min="4" id="Cotizaciones_${pasajeroNumero}__Pasajero_Movil" maxlength="40" name="Cotizaciones[${pasajeroNumero}].Pasajero.Movil" placeholder="Movil..." type="text" value="">
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                <label class="form-label mr-2" for="Cotizaciones_${pasajeroNumero}__Pasajero_TipoID">ID Tipo</label>
+                                <input autocomplete="off" class="form-control" data-val="true" data-val-maxlength="ID Tipo: Por favor ingresar como máximo 20 caracteres" data-val-maxlength-max="20" data-val-minlength="ID Tipo: Por favor ingresar como mínimo 1 caracter" data-val-minlength-min="4" data-val-required="ID Tipo: Este campo es requerido" id="Cotizaciones_${pasajeroNumero}__Pasajero_TipoID" maxlength="20" name="Cotizaciones[${pasajeroNumero}].Pasajero.TipoID" placeholder="DNI, LE, LC, etc..." required="required" type="text" value="">
+                            </div>
+                            <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                <label class="form-label mr-2" for="Cotizaciones_${pasajeroNumero}__Pasajero_CodigoID">Código ID</label>
+                                <input autocomplete="off" class="form-control" data-val="true" data-val-maxlength="Código ID: Por favor ingresar como máximo 40 caracteres" data-val-maxlength-max="40" data-val-minlength="Código ID: Por favor ingresar como mínimo 4 caracteres" data-val-minlength-min="4" data-val-required="Código ID: Este campo es requerido" id="Cotizaciones_${pasajeroNumero}__Pasajero_CodigoID" maxlength="40" name="Cotizaciones[${pasajeroNumero}].Pasajero.CodigoID" placeholder="Codigo Identificacion..." required="required" type="text" value="">
+                            </div>
+                            <div class="form-group form-check-inline mb-0 mr-8 date_filter col-md-3 pr-4">
+                                <label class="label-control mr-1">Fecha</label>
+                                <label class="label-control mr-1">de</label>
+                                <label class="label-control mr-2">Nacimiento</label>
+                            <input autocomplete="off" class="form-control datetimepicker" data-val="true" data-val-required="Fecha Inicio: Este campo es requerido" id="Cotizaciones_${pasajeroNumero}__Pasajero_FechaNacimiento_string" name="Cotizaciones[${pasajeroNumero}].Pasajero.FechaNacimiento_string" placeholder="Fecha..." required="required" type="text" value="">                            </div>
+                            <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                <label class="form-label mr-2" for="Cotizaciones_${pasajeroNumero}__Pasajero_PaisNacionalidad">Pais Nacionalidad</label>
+                                <input autocomplete="off" class="form-control" data-val="true" data-val-maxlength="Pais Nacionalidad: Por favor ingresar como máximo 40 caracteres" data-val-maxlength-max="40" data-val-minlength="Pais Nacionalidad: Por favor ingresar como mínimo 1 caracter" data-val-minlength-min="4" data-val-required="Pais Nacionalidad: Este campo es requerido" id="Cotizaciones_${pasajeroNumero}__Pasajero_PaisNacionalidad" maxlength="40" name="Cotizaciones[${pasajeroNumero}].Pasajero.PaisNacionalidad" placeholder="Pais de Nacionalidad..." required="required" type="text" value="">
+                            </div>
+                        </div>
+                        <div class="d-flex mb-3">
+                            <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                <label class="form-label mr-2" for="Cotizaciones_${pasajeroNumero}__Pasajero_DireccionCalle">Calle y Dirección</label>
+                                <input autocomplete="off" class="form-control" data-val="true" data-val-maxlength="Calle y Dirección: Por favor ingresar como máximo 40 caracteres" data-val-maxlength-max="40" data-val-minlength="Calle y Dirección: Por favor ingresar como mínimo 1 caracter" data-val-minlength-min="4" id="Cotizaciones_${pasajeroNumero}__Pasajero_DireccionCalle" maxlength="40" name="Cotizaciones[${pasajeroNumero}].Pasajero.DireccionCalle" placeholder="885 Calle..." type="text" value="">
+                            </div>
+                            <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                <label class="form-label mr-2" for="Cotizaciones_${pasajeroNumero}__Pasajero_CodigoPostal">Código Postal</label>
+                                <input autocomplete="off" class="form-control" data-val="true" data-val-maxlength="Código Postal: Por favor ingresar como máximo 40 caracteres" data-val-maxlength-max="40" data-val-minlength="Código Postal: Por favor ingresar como mínimo 1 caracter" data-val-minlength-min="4" id="Cotizaciones_${pasajeroNumero}__Pasajero_CodigoPostal" maxlength="40" name="Cotizaciones[${pasajeroNumero}].Pasajero.CodigoPostal" placeholder="Codigo Postal..." type="text" value="">
+                            </div>
+                            <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                <label class="form-label mr-2" for="Cotizaciones_${pasajeroNumero}__Pasajero_Ciudad">Ciudad</label>
+                                <input autocomplete="off" class="form-control" data-val="true" data-val-maxlength="Ciudad: Por favor ingresar como máximo 40 caracteres" data-val-maxlength-max="40" data-val-minlength="Ciudad: Por favor ingresar como mínimo 1 caracter" data-val-minlength-min="4" id="Cotizaciones_${pasajeroNumero}__Pasajero_Ciudad" maxlength="40" name="Cotizaciones[${pasajeroNumero}].Pasajero.Ciudad" placeholder="Ciudad..." type="text" value="">
+                            </div>
+                            <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                <label class="form-label mr-2" for="Cotizaciones_${pasajeroNumero}__Pasajero_Estado">Estado</label>
+                                <input autocomplete="off" class="form-control" data-val="true" data-val-maxlength="Estado: Por favor ingresar como máximo 40 caracteres" data-val-maxlength-max="40" data-val-minlength="Estado: Por favor ingresar como mínimo 1 caracter" data-val-minlength-min="4" id="Cotizaciones_${pasajeroNumero}__Pasajero_Estado" maxlength="40" name="Cotizaciones[${pasajeroNumero}].Pasajero.Estado" placeholder="Estado..." type="text" value="">
+                            </div>
+                            <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                <label class="form-label mr-2" for="Cotizaciones_${pasajeroNumero}__Pasajero_PaisResidencia">Pais de Residencia</label>
+                                <input autocomplete="off" class="form-control" data-val="true" data-val-maxlength="Pais de Residencia: Por favor ingresar como máximo 40 caracteres" data-val-maxlength-max="40" data-val-minlength="Pais de Residencia: Por favor ingresar como mínimo 1 caracter" data-val-minlength-min="4" data-val-required="Pais de Residencia: Este campo es requerido" id="Cotizaciones_${pasajeroNumero}__Pasajero_PaisResidencia" maxlength="40" name="Cotizaciones[${pasajeroNumero}].Pasajero.PaisResidencia" placeholder="Pais..." type="text" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            `
+            return pasajeroForm;
+        }
+
+
+    </script>
+}

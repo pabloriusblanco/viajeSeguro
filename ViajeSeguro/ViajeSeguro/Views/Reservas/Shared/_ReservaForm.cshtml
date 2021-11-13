@@ -1,0 +1,428 @@
+﻿@model ReservaCotizacionViewModel
+
+@if (!Html.ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger position-absolute col-md-12 alert_safe fixed-top" style="z-index:9999;">
+        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" id="buttonCloseAlert">
+            <i class="now-ui-icons ui-1_simple-remove"></i>
+        </button>
+        <div>
+            <div class="mb-2">Por favor revise los siguientes campos:</div>
+            <div class=""> @Html.ValidationMessageFor(x => x.Reserva.Codigo)</div>
+            <div class="">@Html.ValidationMessageFor(x => x.Reserva.TitularTarjeta)</div>
+            <div class=""> @Html.ValidationMessageFor(x => x.Reserva.Total)</div>
+            <div class=""> @Html.ValidationMessageFor(x => x.Reserva.Origen)</div>
+            <div class=""> @Html.ValidationMessageFor(x => x.Reserva.Destino)</div>
+            <div class=""> @Html.ValidationMessageFor(x => x.Reserva.FechaIda_string)</div>
+            <div class=""> @Html.ValidationMessageFor(x => x.Reserva.FechaVuelta_string)</div>
+        </div>
+    </div>
+}
+
+<div class="col-md-12">
+    @using (@Html.BeginForm(null, null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+
+        @if (ViewContext.RouteData.Values["Action"].ToString() == "Editar")
+        {
+            @Html.HiddenFor(x => x.Reserva.Id)
+            @Html.HiddenFor(x => x.Reserva.PrecioBase)
+            @Html.HiddenFor(x => x.Reserva.CantidadPasajeros)
+            @Html.HiddenFor(x => x.Reserva.CantidadDiasViaje)
+            @Html.HiddenFor(x => x.Reserva.Tarjeta)
+        }
+
+        #region ImagesLoad
+        <div class="card">
+            <div class="card-body padding_30">
+                <div class="mb-0">
+                    <div class="d-flex justify-content-around col-md-12">
+                        <div class="form-group form-check-inline text-truncate mb-0 total_filter mr-4">
+                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                <div class="fileinput-new thumbnail_addForm">
+                                    @if (ViewContext.RouteData.Values["Action"].ToString() == "Editar" && Model.Reserva.QrRuta != "")
+                                    {
+                                        <img src=@Url.Content(Model.Reserva.QrRuta) alt="..." style="max-height: 138px;">
+                                    }
+                                    else
+                                    {
+                                        <img src=@Url.Content("~/images/QRs/placeholder.svg") alt="..." style="max-height: 138px;">
+                                    }
+                                </div>
+                                <div class="fileinput-preview fileinput-exists thumbnail" style="max-height: 138px" ;></div>
+                                <div>
+                                    <span class="btn btn-round bg-dark text-white">
+                                        <span class="fileinput-new">Seleccionar QR</span>
+                                        <span class="fileinput-exists">Cambiar</span>
+                                        @Html.HiddenFor(x => x.Reserva.QrRuta)
+                                        @Html.TextBoxFor(x => x.Reserva.QR, new { @class = "form-control", @autocomplete = "off", @type = "file", style = "cursor: pointer" })
+                                    </span>
+                                    <a class="btn btn-danger btn-round fileinput-exists text-white" data-dismiss="fileinput"><i class="fa fa-times"></i> Remover</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-check-inline text-truncate mb-0 total_filter mr-4">
+                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                <div class="fileinput-new thumbnail_addForm">
+                                    @if (ViewContext.RouteData.Values["Action"].ToString() == "Editar" && Model.Reserva.ReciboRuta != "")
+                                    {
+                                        <img src=@Url.Content(Model.Reserva.ReciboRuta) alt="..." style="max-height: 138px;">
+                                    }
+                                    else
+                                    {
+                                        <img src=@Url.Content("~/images/receipts/placeholder.svg") alt="..." style="max-height: 138px;">
+                                    }
+                                </div>
+                                <div class="fileinput-preview fileinput-exists thumbnail" style="max-height: 138px" ;></div>
+                                <div>
+                                    <span class="btn btn-round bg-dark text-white">
+                                        <span class="fileinput-new">Imagen Recibo</span>
+                                        <span class="fileinput-exists">Cambiar</span>
+                                        @Html.HiddenFor(x => x.Reserva.ReciboRuta)
+                                        @Html.TextBoxFor(x => x.Reserva.Recibo, new { @class = "form-control", @autocomplete = "off", @type = "file", style = "cursor: pointer" })
+                                    </span>
+                                    <a class="btn btn-danger btn-round fileinput-exists text-white" data-dismiss="fileinput"><i class="fa fa-times"></i> Remover</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group form-check-inline text-truncate mb-0 total_filter mr-4">
+                            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                <div class="fileinput-new thumbnail_addForm">
+                                    @if (ViewContext.RouteData.Values["Action"].ToString() == "Editar" && Model.Reserva.DocumentacionRuta != "")
+                                    {
+                                        <img src=@Url.Content(Model.Reserva.DocumentacionRuta) alt="..." style="max-height: 138px;">
+                                    }
+                                    else
+                                    {
+                                        <img src=@Url.Content("~/images/documentation/placeholder.svg") alt="..." style="max-height: 138px;">
+                                    }
+                                </div>
+                                <div class="fileinput-preview fileinput-exists thumbnail" style="max-height: 138px" ;></div>
+                                <div>
+                                    <span class="btn btn-round bg-dark text-white">
+                                        <span class="fileinput-new">Imagen Documentación</span>
+                                        <span class="fileinput-exists">Cambiar</span>
+                                        @Html.HiddenFor(x => x.Reserva.DocumentacionRuta)
+                                        @Html.TextBoxFor(x => x.Reserva.Documentacion, new { @class = "form-control", @autocomplete = "off", @type = "file", style = "cursor: pointer" })
+                                    </span>
+                                    <a class="btn btn-danger btn-round fileinput-exists text-white" data-dismiss="fileinput"><i class="fa fa-times"></i> Remover</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        #endregion
+
+        <div class="card">
+            <div class="card-body padding_30">
+                <div class="text-center mb-3">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-between items-align-center">
+                            <div>
+                                <h6 class="card-title text-left mb-0">Información Reserva</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-0">
+                    <div class="d-flex mb-3">
+                        <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                            @Html.LabelFor(x => x.Reserva.Codigo, new { @class = "form-label mr-2" })
+                            @if (ViewContext.RouteData.Values["Action"].ToString() == "Editar")
+                            {
+                                @Html.TextBoxFor(x => x.Reserva.Codigo, new { @class = "form-control", @placeholder = "Código de Reserva...", @readonly = "readonly" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(x => x.Reserva.Codigo, new { @class = "form-control", @placeholder = "Código de Reserva...", @autocomplete = "off", required = "required" })
+                            }
+                        </div>
+                        <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                            @Html.LabelFor(x => x.Reserva.TitularTarjeta, new { @class = "form-label mr-2" })
+                            @if (ViewContext.RouteData.Values["Action"].ToString() == "Editar")
+                            {
+                                @Html.TextBoxFor(x => x.Reserva.TitularTarjeta, new { @class = "form-control", @placeholder = "Nombre Completo...", @readonly = "readonly" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(x => x.Reserva.TitularTarjeta, new { @class = "form-control", @placeholder = "Nombre Completo...", @autocomplete = "off", required = "required" })
+                            }
+                        </div>
+                        <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                            @Html.LabelFor(x => x.Reserva.Tarjeta, new { @class = "form-label mr-2" })
+                            @if (ViewContext.RouteData.Values["Action"].ToString() == "Editar")
+                            {
+                                <input class="form-control" data-val="true" readonly="readonly" type="text" value=`XXX-XXXX-XXXX-@Model.Reserva.Tarjeta`>
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(x => x.Reserva.Tarjeta, new { @class = "form-control", @placeholder = "Numero Tarjeta...", @autocomplete = "off", required = "required" })
+                            }
+                        </div>
+                        <div class="form-group form-check-inline mb-0 mr-0 col-md-3 pr-4">
+                            <label for="EstadoPago" class="mr-4">Estado</label>
+                            @Html.DropDownListFor(x => x.Reserva.EstadoPagoId, ViewBag.EstadoPago as SelectList, "Seleccione un estado del pago...", new { @class = "form-control selectpicker", required = "required" })
+                        </div>
+                    </div>
+
+
+                    <div class="d-flex mb-3">
+                        <div class="form-group form-check-inline mb-0 mr-8 date_filter col-md-3 pr-4">
+                            <label class="label-control mr-2">Fecha</label>
+                            @Html.LabelFor(x => x.Reserva.Codigo, new { @class = "form-label mr-2" })
+                            @if (ViewContext.RouteData.Values["Action"].ToString() == "Editar")
+                            {
+                                @Html.TextBoxFor(x => x.Reserva.FechaIda_string, new { @type = "text", @class = "form-control mr-2", @placeholder = "Inicio...", @autocomplete = "off", @readonly = "readonly" })
+                                @Html.TextBoxFor(x => x.Reserva.FechaVuelta_string, new { @type = "text", @class = "form-control", @placeholder = "Regreso...", @autocomplete = "off", @readonly = "readonly" })
+                            }
+                            else
+                            {
+                                @Html.TextBoxFor(x => x.Reserva.FechaIda_string, new { @type = "text", @class = "form-control datetimepicker mr-2", @placeholder = "Inicio...", @autocomplete = "off", required = "required" })
+                                @Html.TextBoxFor(x => x.Reserva.FechaVuelta_string, new { @type = "text", @class = "form-control datetimepicker", @placeholder = "Regreso...", @autocomplete = "off", required = "required" })
+                            }
+                        </div>
+                        <div class="form-group form-check-inline mb-0 col-md-3 pr-4 mr-0">
+                            <label for="Plan" class="mr-4">Plan</label>
+                            @Html.DropDownListFor(x => x.Reserva.PlanId, ViewBag.Plans as SelectList, "Seleccione un Plan...", new { @class = "form-control selectpicker", required = "required" })
+                        </div>
+                        <div class="form-group form-check-inline mb-0 mr-0 col-md-3 pr-4 mr-0">
+                            <label for="Origen" class="mr-4">Origen</label>
+                            @Html.DropDownListFor(x => x.Reserva.OrigenId, ViewBag.Regiones as SelectList, "Seleccione una región...", new { @class = "form-control selectpicker", required = "required" })
+                        </div>
+
+                        <div class="form-group form-check-inline mb-0 mr-0 col-md-3 pr-4 mr-0">
+                            <label for="Destino" class="mr-4">Destino</label>
+                            @Html.DropDownListFor(x => x.Reserva.DestinoId, ViewBag.Regiones as SelectList, "Seleccione una región...", new { @class = "form-control selectpicker", required = "required" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @if (ViewContext.RouteData.Values["Action"].ToString() == "Editar")
+        {
+            for (int i = 0; i < Model.Cotizaciones.Count; i++)
+            {
+                @Html.HiddenFor(x => x.Cotizaciones[i].Id)
+                @Html.HiddenFor(x => x.Cotizaciones[i].Pasajero.Id)
+                @Html.HiddenFor(x => x.Cotizaciones[i].Pasajero.MenorDeEdad)
+                @Html.HiddenFor(x => x.Cotizaciones[i].ReservaId)
+                @Html.HiddenFor(x => x.Cotizaciones[i].CantidadDiasViaje)
+                @Html.HiddenFor(x => x.Cotizaciones[i].Total)
+
+
+                <div id="pasajerosContainer">
+                    <div class="card">
+                        <div class="card-body padding_30">
+                            <div class="text-center mb-3">
+                                <div class="row">
+                                    <div class="col-12 d-flex justify-content-between items-align-center">
+                                        <div>
+                                            <h6 class="card-title text-left mb-0 pasajeroCount">@Model.Cotizaciones[i].Pasajero.Nombre @Model.Cotizaciones[i].Pasajero.Apellido</h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-0">
+                                <div class="d-flex mb-3">
+                                    <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                        @Html.LabelFor(x => x.Cotizaciones[i].Pasajero.Nombre, new { @class = "form-label mr-2" })
+                                        @Html.TextBoxFor(x => x.Cotizaciones[i].Pasajero.Nombre, new { @class = "form-control", @placeholder = "Nombre Pasajero...", @autocomplete = "off", required = "required" })
+                                    </div>
+                                    <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                        @Html.LabelFor(x => x.Cotizaciones[i].Pasajero.Apellido, new { @class = "form-label mr-2" })
+                                        @Html.TextBoxFor(x => x.Cotizaciones[i].Pasajero.Apellido, new { @class = "form-control", @placeholder = "Apellido Pasajero...", @autocomplete = "off", required = "required" })
+                                    </div>
+                                    <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                        @Html.LabelFor(x => x.Cotizaciones[i].Pasajero.Email, new { @class = "form-label mr-2" })
+                                        @Html.TextBoxFor(x => x.Cotizaciones[i].Pasajero.Email, new { @class = "form-control", @placeholder = "Apellido Pasajero...", @autocomplete = "off", @type = "email" })
+                                    </div>
+                                    <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                        @Html.LabelFor(x => x.Cotizaciones[i].Pasajero.Telefono, new { @class = "form-label mr-2" })
+                                        @Html.TextBoxFor(x => x.Cotizaciones[i].Pasajero.Telefono, new { @class = "form-control", @placeholder = "Telefono...", @autocomplete = "off" })
+                                    </div>
+                                    <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                        @Html.LabelFor(x => x.Cotizaciones[i].Pasajero.Movil, new { @class = "form-label mr-2" })
+                                        @Html.TextBoxFor(x => x.Cotizaciones[i].Pasajero.Movil, new { @class = "form-control", @placeholder = "Movil...", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                                <div class="d-flex mb-3">
+                                    <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                        @Html.LabelFor(x => x.Cotizaciones[i].Pasajero.TipoID, new { @class = "form-label mr-2" })
+                                        @Html.TextBoxFor(x => x.Cotizaciones[i].Pasajero.TipoID, new { @class = "form-control", @placeholder = "DNI, LE, LC, etc...", @autocomplete = "off", required = "required" })
+                                    </div>
+                                    <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                        @Html.LabelFor(x => x.Cotizaciones[i].Pasajero.CodigoID, new { @class = "form-label mr-2" })
+                                        @Html.TextBoxFor(x => x.Cotizaciones[i].Pasajero.CodigoID, new { @class = "form-control", @placeholder = "Codigo Identificacion...", @autocomplete = "off", required = "required" })
+                                    </div>
+                                    <div class="form-group form-check-inline mb-0 mr-8 date_filter col-md-3 pr-4">
+                                        <label class="label-control mr-1">Fecha</label>
+                                        <label class="label-control mr-1">de</label>
+                                        <label class="label-control mr-2">Nacimiento</label>
+                                        @Html.TextBoxFor(x => x.Cotizaciones[i].Pasajero.FechaNacimiento_string, new { @type = "text", @class = "form-control", @placeholder = "Fecha...", @autocomplete = "off", @readonly = "readonly" })
+                                    </div>
+                                    <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                        @Html.LabelFor(x => x.Cotizaciones[i].Pasajero.PaisNacionalidad, new { @class = "form-label mr-2" })
+                                        @Html.TextBoxFor(x => x.Cotizaciones[i].Pasajero.PaisNacionalidad, new { @class = "form-control", @placeholder = "Pais de Nacionalidad...", @autocomplete = "off", required = "required" })
+                                    </div>
+                                </div>
+                                <div class="d-flex mb-3">
+                                    <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                        @Html.LabelFor(x => x.Cotizaciones[i].Pasajero.DireccionCalle, new { @class = "form-label mr-2" })
+                                        @Html.TextBoxFor(x => x.Cotizaciones[i].Pasajero.DireccionCalle, new { @class = "form-control", @placeholder = "885 Calle...", @autocomplete = "off" })
+                                    </div>
+                                    <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                        @Html.LabelFor(x => x.Cotizaciones[i].Pasajero.CodigoPostal, new { @class = "form-label mr-2" })
+                                        @Html.TextBoxFor(x => x.Cotizaciones[i].Pasajero.CodigoPostal, new { @class = "form-control", @placeholder = "Codigo Postal...", @autocomplete = "off" })
+                                    </div>
+                                    <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                        @Html.LabelFor(x => x.Cotizaciones[i].Pasajero.Ciudad, new { @class = "form-label mr-2" })
+                                        @Html.TextBoxFor(x => x.Cotizaciones[i].Pasajero.Ciudad, new { @class = "form-control", @placeholder = "Ciudad...", @autocomplete = "off" })
+                                    </div>
+                                    <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                        @Html.LabelFor(x => x.Cotizaciones[i].Pasajero.Estado, new { @class = "form-label mr-2" })
+                                        @Html.TextBoxFor(x => x.Cotizaciones[i].Pasajero.Estado, new { @class = "form-control", @placeholder = "Estado...", @autocomplete = "off" })
+                                    </div>
+                                    <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                        @Html.LabelFor(x => x.Cotizaciones[i].Pasajero.PaisResidencia, new { @class = "form-label mr-2" })
+                                        @Html.TextBoxFor(x => x.Cotizaciones[i].Pasajero.PaisResidencia, new { @class = "form-control", @placeholder = "Pais...", @autocomplete = "off" })
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            }
+        }
+        else
+        {
+
+            <div class="card">
+                <div class="card-body padding_30">
+                    <div class="text-center">
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-between items-align-center">
+                                <div>
+                                    <h6 class="card-title text-left mb-0">Agregar Pasajero</h6>
+                                    <p class="mt-2 mb-0" style="font-size: 12px;">Los menores de 16 años tendrán un 50% de descuento.</p>
+                                </div>
+                                <a onclick="agregarPasajero()" class="btn btn-primary btn-round text-white my-0 d-flex align-items-center justify-content-center">
+                                    <i class="fas fa-plus mr-2" style="font-size: 14px;margin-top:2px;"></i>
+                                    Agregar Pasajero
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="pasajerosContainer">
+                <div class="card">
+                    <div class="card-body padding_30">
+                        <div class="text-center mb-3">
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-between items-align-center">
+                                    <div>
+                                        <h6 class="card-title text-left mb-0 pasajeroCount">Pasajero</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mb-0">
+                            <div class="d-flex mb-3">
+                                <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                    @Html.LabelFor(x => x.Cotizaciones[0].Pasajero.Nombre, new { @class = "form-label mr-2" })
+                                    @Html.TextBoxFor(x => x.Cotizaciones[0].Pasajero.Nombre, new { @class = "form-control", @placeholder = "Nombre Pasajero...", @autocomplete = "off", required = "required" })
+                                </div>
+                                <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                    @Html.LabelFor(x => x.Cotizaciones[0].Pasajero.Apellido, new { @class = "form-label mr-2" })
+                                    @Html.TextBoxFor(x => x.Cotizaciones[0].Pasajero.Apellido, new { @class = "form-control", @placeholder = "Apellido Pasajero...", @autocomplete = "off", required = "required" })
+                                </div>
+                                <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                    @Html.LabelFor(x => x.Cotizaciones[0].Pasajero.Email, new { @class = "form-label mr-2" })
+                                    @Html.TextBoxFor(x => x.Cotizaciones[0].Pasajero.Email, new { @class = "form-control", @placeholder = "Apellido Pasajero...", @autocomplete = "off", @type = "email" })
+                                </div>
+                                <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                    @Html.LabelFor(x => x.Cotizaciones[0].Pasajero.Telefono, new { @class = "form-label mr-2" })
+                                    @Html.TextBoxFor(x => x.Cotizaciones[0].Pasajero.Telefono, new { @class = "form-control", @placeholder = "Telefono...", @autocomplete = "off" })
+                                </div>
+                                <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                    @Html.LabelFor(x => x.Cotizaciones[0].Pasajero.Movil, new { @class = "form-label mr-2" })
+                                    @Html.TextBoxFor(x => x.Cotizaciones[0].Pasajero.Movil, new { @class = "form-control", @placeholder = "Movil...", @autocomplete = "off" })
+                                </div>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                    @Html.LabelFor(x => x.Cotizaciones[0].Pasajero.TipoID, new { @class = "form-label mr-2" })
+                                    @Html.TextBoxFor(x => x.Cotizaciones[0].Pasajero.TipoID, new { @class = "form-control", @placeholder = "DNI, LE, LC, etc...", @autocomplete = "off", required = "required" })
+                                </div>
+                                <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                    @Html.LabelFor(x => x.Cotizaciones[0].Pasajero.CodigoID, new { @class = "form-label mr-2" })
+                                    @Html.TextBoxFor(x => x.Cotizaciones[0].Pasajero.CodigoID, new { @class = "form-control", @placeholder = "Codigo Identificacion...", @autocomplete = "off", required = "required" })
+                                </div>
+                                <div class="form-group form-check-inline mb-0 mr-8 date_filter col-md-3 pr-4">
+                                    <label class="label-control mr-1">Fecha</label>
+                                    <label class="label-control mr-1">de</label>
+                                    <label class="label-control mr-2">Nacimiento</label>
+                                    @if (ViewContext.RouteData.Values["Action"].ToString() == "Editar")
+                                    {
+                                        @Html.TextBoxFor(x => x.Cotizaciones[0].Pasajero.FechaNacimiento_string, new { @type = "text", @class = "form-control", @placeholder = "Fecha...", @autocomplete = "off", @readonly = "readonly" })
+                                    }
+                                    else
+                                    {
+                                        @Html.TextBoxFor(x => x.Cotizaciones[0].Pasajero.FechaNacimiento_string, new { @type = "text", @class = "form-control datetimepicker", @placeholder = "Fecha...", @autocomplete = "off", required = "required" })
+                                    }
+                                </div>
+                                <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                    @Html.LabelFor(x => x.Cotizaciones[0].Pasajero.PaisNacionalidad, new { @class = "form-label mr-2" })
+                                    @Html.TextBoxFor(x => x.Cotizaciones[0].Pasajero.PaisNacionalidad, new { @class = "form-control", @placeholder = "Pais de Nacionalidad...", @autocomplete = "off", required = "required" })
+                                </div>
+                            </div>
+                            <div class="d-flex mb-3">
+                                <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                    @Html.LabelFor(x => x.Cotizaciones[0].Pasajero.DireccionCalle, new { @class = "form-label mr-2" })
+                                    @Html.TextBoxFor(x => x.Cotizaciones[0].Pasajero.DireccionCalle, new { @class = "form-control", @placeholder = "885 Calle...", @autocomplete = "off" })
+                                </div>
+                                <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                    @Html.LabelFor(x => x.Cotizaciones[0].Pasajero.CodigoPostal, new { @class = "form-label mr-2" })
+                                    @Html.TextBoxFor(x => x.Cotizaciones[0].Pasajero.CodigoPostal, new { @class = "form-control", @placeholder = "Codigo Postal...", @autocomplete = "off" })
+                                </div>
+                                <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                    @Html.LabelFor(x => x.Cotizaciones[0].Pasajero.Ciudad, new { @class = "form-label mr-2" })
+                                    @Html.TextBoxFor(x => x.Cotizaciones[0].Pasajero.Ciudad, new { @class = "form-control", @placeholder = "Ciudad...", @autocomplete = "off" })
+                                </div>
+                                <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-2">
+                                    @Html.LabelFor(x => x.Cotizaciones[0].Pasajero.Estado, new { @class = "form-label mr-2" })
+                                    @Html.TextBoxFor(x => x.Cotizaciones[0].Pasajero.Estado, new { @class = "form-control", @placeholder = "Estado...", @autocomplete = "off" })
+                                </div>
+                                <div class="form-group form-check-inline text-truncate mb-0 mr-0 pr-4 col-md-3">
+                                    @Html.LabelFor(x => x.Cotizaciones[0].Pasajero.PaisResidencia, new { @class = "form-label mr-2" })
+                                    @Html.TextBoxFor(x => x.Cotizaciones[0].Pasajero.PaisResidencia, new { @class = "form-control", @placeholder = "Pais...", @autocomplete = "off" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        }
+
+        <div class="d-flex mb-3">
+            <div class="form-group form-check-inline text-truncate mb-0 justify-content-end w-100 pr-4 mr-0">
+                <button type="submit"
+                        class="btn btn-primary btn-round text-white my-0">
+                    <i class="fas fa-upload mr-2" style="font-size: 14px;"></i>
+                    Guardar
+                </button>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+

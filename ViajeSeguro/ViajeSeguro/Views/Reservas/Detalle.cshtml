@@ -1,0 +1,470 @@
+﻿@model ReservaCotizacionViewModel
+
+@{
+    ViewData["Title"] = "Detalle Reservas";
+}
+
+<div class="content">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card padding_30">
+                <div class="text-center">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-between items-align-center">
+                            <div>
+                                <h6 class="card-title text-left mb-0">Detalle Reserva</h6>
+                                <p class="mt-2 mb-0" style="font-size: 12px;">Información extra de las reservas y sus pasajeros.</p>
+                            </div>
+                            <a href="@Url.Action("Index")" class="btn btn-secondary btn-round text-white my-0 d-flex align-items-center justify-content-center">
+                                <i class="fas fa-arrow-left mr-2" style="font-size: 14px;"></i>
+                                Volver
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card padding_30">
+                <div class="text-center">
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <h6 class="card-title text-left">
+                                Reserva:
+                                <span class="font-weight-light h5 ml-2"> #@Model.Reserva.Codigo</span>
+                            </h6>
+                            <h6 class="card-title text-left">
+                                Plan
+                                <span class="font-weight-light h5 ml-2">@Model.Reserva.Plan.Nombre</span>
+                            </h6>
+                            <h6 class="card-title text-left mb-0">
+                                Fecha de emisión
+                                <span class="font-weight-light h5 ml-2">@Model.Reserva.FechaEmision.ToString("dd/MM/yyyy - HH:mm")</span>
+                            </h6>
+
+                        </div>
+                        <div class="col-12 col-lg-6 d-flex justify-content-end">
+                            @if (Model.Reserva.QrRuta != "")
+                            {
+                                <img src=@Url.Content(Model.Reserva.QrRuta) alt="..." style="max-height: 110px;">
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12 col-lg-6 pl-0">
+                            <table class="table mt-4">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left table_header text-info text-nowrap text-uppercase">
+                                            Viaje
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left table_textContent">Origen</td>
+                                        <td class="text-right table_textContent">
+                                            <img class="mr-2" src=@Url.Content("~/images/icons/globe/" + @Model.Reserva.Origen.IconoNombre + ".svg") height="14" width="14" />
+                                            @Model.Reserva.Origen.Nombre
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left table_textContent">Destino</td>
+                                        <td class="text-right table_textContent">
+                                            <img class="mr-2" src=@Url.Content("~/images/icons/globe/" + @Model.Reserva.Destino.IconoNombre + ".svg") height="14" width="14" />
+                                            @Model.Reserva.Destino.Nombre
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left table_textContent">Inicio de viaje</td>
+                                        <td class="text-right table_textContent">@Model.Reserva.FechaIda_string</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left table_textContent">Finalizacion de viaje</td>
+                                        <td class="text-right table_textContent">@Model.Reserva.FechaVuelta_string</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left table_textContent">Estado del pago</td>
+                                        <td class="text-right table_textContent bold">@getEstadoTexto(Model.Reserva.EstadoPagoId)</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-12 col-lg-6 pr-0">
+                            <table class="table mt-4">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left table_header text-info text-nowrap text-uppercase">
+                                            Pago
+                                        </th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="text-left table_textContent">Ultimos dígitos tarjeta</td>
+                                        <td class="text-right table_textContent">XXXX-XXXX-XXXX-<span>@Model.Reserva.Tarjeta</span></td>
+                                    </tr>
+                                    <tr>
+
+                                        <td class="text-left table_textContent">Precio Base ($@Model.Reserva.PrecioBase ARG) por @Model.Reserva.CantidadDiasViaje días, @Model.Reserva.CantidadPasajeros pasajero/s</td>
+                                        <td class="text-right table_textContent"><span>$@(Model.Reserva.Total - getImpuestos(Model.Reserva.Total, @Model.Reserva.ImpuestosPorcentaje))</span> ARG</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left table_textContent">Regargo (<span>@Model.Reserva.RecargoPorcentaje</span> %)</td>
+                                        <td class="text-right table_textContent"><span>$@getRegargo(getPrecio(Model.Reserva.PrecioBase, Model.Reserva.CantidadDiasViaje), @Model.Reserva.RecargoPorcentaje)</span> ARG</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left table_textContent">Impuestos (<span>@Model.Reserva.ImpuestosPorcentaje</span> %)</td>
+                                        <td class="text-right table_textContent"><span>$@getImpuestos(Model.Reserva.Total, @Model.Reserva.ImpuestosPorcentaje)</span> ARG</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-left table_textContent bold">Total</td>
+                                        <td class="text-right table_textContent bold">$ @Model.Reserva.Total ARG</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @foreach (var cotizacion in Model.Cotizaciones.Select((value, index) => (value, index)))
+    {
+        <div class="row">
+            <div class="col-12 ml-auto mr-auto">
+                <div class="card card-invoice padding_30">
+                    <div class="card-header text-center" data-color-icon="warning" role="tab">
+                        <div class="row">
+                            <div class="col-12 collapse_button" data-toggle="collapse" href="@($"#clientCard{(cotizacion.index+1)}")" aria-expanded="false" aria-controls="@($"#clientCard{(cotizacion.index+1)}")" style="cursor: pointer">
+                                <div class="justify-content-between d-flex align-items-center">
+                                    <h6 class="card-title text-left">Pasajero<span> @(cotizacion.index+1)</span> <span class="font-weight-light h5 ml-2"> #@cotizacion.value.Pasajero.Nombre @cotizacion.value.Pasajero.Apellido</span></h6>
+                                    <i class="fas fa-chevron-down f6"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse" id="@($"clientCard{(cotizacion.index+1)}")">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    <table class="table width_100">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-left table_header text-info text-nowrap text-uppercase">
+                                                    Datos Personales - Contacto
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-left table_textContent text-nowrap">Nombre</td>
+                                                <td class="text-right table_textContent">@cotizacion.value.Pasajero.Nombre</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left table_textContent text-nowrap">Apellido</td>
+                                                <td class="text-right table_textContent">@cotizacion.value.Pasajero.Apellido</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left table_textContent text-nowrap">Email</td>
+                                                <td class="text-right table_textContent">
+                                                    @if (true)
+                                                    {
+                                                        @cotizacion.value.Pasajero.Email
+                                                    }
+                                                    else
+                                                    {
+                                                        @("-")
+                                                    }
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left table_textContent">Telefono / Móvil</td>
+                                                <td class="text-right table_textContent">
+                                                    @if (true)
+                                                    {
+                                                        @cotizacion.value.Pasajero.Telefono
+                                                    }
+                                                    else
+                                                    {
+                                                        @("-")
+                                                    }
+                                                    /
+                                                    @if (true)
+                                                    {
+                                                        @cotizacion.value.Pasajero.Movil
+                                                    }
+                                                    else
+                                                    {
+                                                        @("-")
+                                                    }
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left table_textContent">ID Tipo / Número </td>
+                                                <td class="text-right table_textContent">
+                                                    @cotizacion.value.Pasajero.TipoID / @cotizacion.value.Pasajero.CodigoID
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left table_textContent">Fecha de Nacimiento</td>
+                                                <td class="text-right table_textContent">
+                                                    @cotizacion.value.Pasajero.FechaNacimiento_string
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <table class="table width_100">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-left table_header text-info text-nowrap text-uppercase">
+                                                    Datos Personales - Residencia
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-left table_textContent text-nowrap">Nacionalidad</td>
+                                                <td class="text-right table_textContent">@cotizacion.value.Pasajero.PaisNacionalidad</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left table_textContent text-nowrap">Dirección Calle / Código Postal</td>
+                                                <td class="text-right table_textContent">
+                                                    @if (true)
+                                                    {
+                                                        @cotizacion.value.Pasajero.DireccionCalle
+                                                    }
+                                                    else
+                                                    {
+                                                        @("-")
+                                                    }
+                                                    /
+                                                    @if (true)
+                                                    {
+                                                        @cotizacion.value.Pasajero.CodigoPostal
+                                                    }
+                                                    else
+                                                    {
+                                                        @("-")
+                                                    }
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left table_textContent text-nowrap">Ciudad / Estado</td>
+                                                <td class="text-right table_textContent">
+                                                    @if (true)
+                                                    {
+                                                        @cotizacion.value.Pasajero.Ciudad
+                                                    }
+                                                    else
+                                                    {
+                                                        @("-")
+                                                    }
+                                                    /
+                                                    @if (true)
+                                                    {
+                                                        @cotizacion.value.Pasajero.Estado
+                                                    }
+                                                    else
+                                                    {
+                                                        @("-")
+                                                    }
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="text-left table_textContent text-nowrap">Pais de residencia</td>
+                                                <td class="text-right table_textContent">
+                                                    @if (true)
+                                                    {
+                                                        @cotizacion.value.Pasajero.PaisResidencia
+                                                    }
+                                                    else
+                                                    {
+                                                        @("-")
+                                                    }
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-left table_header text-info text-nowrap text-uppercase">
+                                                    Pago
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (!@cotizacion.value.Pasajero.MenorDeEdad)
+                                            {
+                                                <tr>
+                                                    <td class="text-left table_textContent">Precio Base ($@Model.Reserva.PrecioBase ARG) por @cotizacion.value.CantidadDiasViaje días </td>
+                                                    <td class="text-right table_textContent"><span>$@(getPrecio(@Model.Reserva.PrecioBase, cotizacion.value.CantidadDiasViaje))</span> ARG</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left table_textContent">Regargo (<span>@Model.Reserva.RecargoPorcentaje</span> %)</td>
+                                                    <td class="text-right table_textContent"><span>$@getRegargo(getPrecio(@Model.Reserva.PrecioBase, cotizacion.value.CantidadDiasViaje), cotizacion.value.Reserva.RecargoPorcentaje)</span> ARG</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left table_textContent">Impuestos (<span>@Model.Reserva.ImpuestosPorcentaje</span> %)</td>
+                                                    <td class="text-right table_textContent"><span>$@getImpuestos(getPrecio(@Model.Reserva.PrecioBase, cotizacion.value.CantidadDiasViaje), @Model.Reserva.ImpuestosPorcentaje)</span> ARG</td>
+                                                </tr>
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td class="text-left table_textContent">Precio Base($@Model.Reserva.PrecioBase ARG) por @cotizacion.value.CantidadDiasViaje días (50% menor de Edad) </td>
+                                                    <td class="text-right table_textContent"><span>$@(getPrecio(@Model.Reserva.PrecioBase/2, cotizacion.value.CantidadDiasViaje))</span> ARG</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left table_textContent">Regargo (<span>@Model.Reserva.RecargoPorcentaje</span> %)</td>
+                                                    <td class="text-right table_textContent"><span>$@getRegargo(getPrecio(@Model.Reserva.PrecioBase/2, cotizacion.value.CantidadDiasViaje), cotizacion.value.Reserva.RecargoPorcentaje)</span> ARG</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="text-left table_textContent">Impuestos (<span>@Model.Reserva.ImpuestosPorcentaje</span> %)</td>
+                                                    <td class="text-right table_textContent"><span>$@getImpuestos(getPrecio(@Model.Reserva.PrecioBase/2, cotizacion.value.CantidadDiasViaje), @Model.Reserva.ImpuestosPorcentaje)</span> ARG</td>
+                                                </tr>
+
+                                            }
+                                            <tr>
+                                                <td class="text-left table_textContent bold">Total</td>
+                                                <td class="text-right table_textContent bold">$@cotizacion.value.Total ARG</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+
+    @if (@Model.Reserva.ReciboRuta != "" || @Model.Reserva.DocumentacionRuta != "")
+    {
+        <div class="row">
+            <div class="col-12 ml-auto mr-auto">
+                <div class="card card-invoice padding_30">
+                    <div class="card-header text-center" data-color-icon="warning" role="tab">
+                        <div class="row">
+                            <div class="col-12 collapse_button" data-toggle="collapse" href="#documentImages" aria-expanded="false" aria-controls="documentImages" style="cursor: pointer">
+                                <div class="justify-content-between d-flex align-items-center">
+                                    <h6 class="card-title text-left">Imagenes Adjuntas</h6>
+                                    <i class="fas fa-chevron-down f6"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="collapse" id="documentImages">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 col-lg-6 pr-0">
+                                    @if (@Model.Reserva.ReciboRuta != "")
+                                    {
+                                        <div class="text-left table_header text-info text-nowrap text-uppercase bold mb-3">
+                                            Recibo
+                                        </div>
+
+                                        <a download href="@Url.Content(Model.Reserva.ReciboRuta)" target="_blank">
+                                            <img src=@Url.Content(Model.Reserva.ReciboRuta) alt="..." style="max-height: 138px;">
+                                        </a>
+                                    }
+                                </div>
+                                <div class="col-12 col-lg-6 pr-0">
+                                    @if (@Model.Reserva.DocumentacionRuta != "")
+                                    {
+                                        <div class="text-left table_header text-info text-nowrap text-uppercase bold mb-3">
+                                            Documentacion
+                                        </div>
+
+                                        <a download href="@Url.Content(Model.Reserva.DocumentacionRuta)" target="_blank">
+                                            <img src=@Url.Content(Model.Reserva.DocumentacionRuta) alt="..." style="max-height: 138px;">
+                                        </a>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+    @functions
+    {
+        public string getRegargo(double BasePrice, double Recargo)
+        {
+            return Math.Round(BasePrice * Recargo / 100, 2).ToString();
+        }
+
+        public double getImpuestos(double Total, double Impuestos)
+        {
+
+            return Math.Round(Total * Impuestos / 100, 2);
+        }
+
+        public double getPrecio(double BasePrice, int CantidadDias)
+        {
+            return Math.Round(BasePrice * CantidadDias, 2);
+        }
+
+        public string getEstadoTexto(int Estado)
+        {
+            switch (Estado)
+            {
+                case 0:
+                    <span>
+                        Rechazado
+                    </span>
+                    break;
+                case 1:
+                    <span>
+                        Procesando
+                    </span>
+                    break;
+                case 2:
+                    <span>
+                        Aceptado
+                    </span>
+                    break;
+                default:
+                    break;
+            }
+
+            return string.Empty;
+        }
+    }
+
+
+
+</div>
+
+
+
+@section scripts {
+    <script>
+        window.onload = () => {
+            let collapsables = Array.from(document.getElementsByClassName("collapse_button"));
+            collapsables.forEach(collapsable => {
+                collapsable.addEventListener("click",
+                    function () {
+                        collapsable.firstElementChild.getElementsByTagName("i")[0].classList.toggle("rotate180");
+                    })
+            })
+        }
+    </script>
+}

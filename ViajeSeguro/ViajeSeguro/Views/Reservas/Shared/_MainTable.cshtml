@@ -1,0 +1,289 @@
+﻿
+<div class="table-responsive">
+    <table class="table">
+        <thead class="h6">
+            <tr>
+                <th scope="col" class="text-truncate pr-4">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-2">Codigo</div>
+                        <div class="d-flex flex-column" style="font-size:8px;">
+                            @if (ViewContext.RouteData.Values["controller"].ToString() == "Reservas")
+                            {
+                                <a href="@Url.Action("Index", null, new { sortOrder = ViewBag.CodigoSortParm })">
+                                    @getSortOrderIcon(ViewBag.CodigoSortParm, "Codigo");
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </th>
+                <th scope="col" class="text-truncate pr-4">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-2">Titular Tarjeta</div>
+                        <div class="d-flex flex-column" style="font-size:8px;">
+                            @if (ViewContext.RouteData.Values["controller"].ToString() == "Reservas")
+                            {
+                                <a href="@Url.Action("Index", null, new { sortOrder = ViewBag.TitularTarjeta })">
+                                    @getSortOrderIcon(ViewBag.TitularTarjeta, "TitularTarjeta")
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </th>
+                <th scope="col" class="text-truncate pr-4">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-2">Pago</div>
+                        <div class="d-flex flex-column" style="font-size:8px;">
+                            @if (ViewContext.RouteData.Values["controller"].ToString() == "Reservas")
+                            {
+                                <a href="@Url.Action("Index", null, new { sortOrder = ViewBag.EstadoPago })">
+                                    @getSortOrderIcon(ViewBag.EstadoPago, "EstadoPago")
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </th>
+                <th scope="col" class="text-truncate pr-4">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-2">Fecha Ida</div>
+                        <div class="d-flex flex-column" style="font-size:8px;">
+                            @if (ViewContext.RouteData.Values["controller"].ToString() == "Reservas")
+                            {
+                                <a href="@Url.Action("Index", null, new { sortOrder = ViewBag.FechaIda })">
+                                    @getSortOrderIcon(ViewBag.FechaIda, "FechaIda")
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </th>
+                <th scope="col" class="text-truncate pr-4">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-2">Fecha Vuelta</div>
+                        <div class="d-flex flex-column" style="font-size:8px;">
+                            @if (ViewContext.RouteData.Values["controller"].ToString() == "Reservas")
+                            {
+                                <a href="@Url.Action("Index", null, new { sortOrder = ViewBag.FechaVuelta })">
+                                    @getSortOrderIcon(ViewBag.FechaVuelta, "FechaVuelta")
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </th>
+                <th scope="col" class="text-truncate pr-4">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-2">Plan Código</div>
+                        <div class="d-flex flex-column" style="font-size:8px;">
+                            @if (ViewContext.RouteData.Values["controller"].ToString() == "Reservas")
+                            {
+                                <a href="@Url.Action("Index", null, new { sortOrder = ViewBag.PlanCodigo })">
+                                    @getSortOrderIcon(ViewBag.PlanCodigo, "PlanCodigo")
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </th>
+                <th scope="col" class="text-truncate pr-4">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-2">Plan Nombre</div>
+                        <div class="d-flex flex-column" style="font-size:8px;">
+                            @if (ViewContext.RouteData.Values["controller"].ToString() == "Reservas")
+                            {
+                                <a href="@Url.Action("Index", null, new { sortOrder = ViewBag.PlanNombre })">
+                                    @getSortOrderIcon(ViewBag.PlanNombre, "PlanNombre")
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </th>
+                <th scope="col" class="text-truncate pr-4">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-2">Origen</div>
+                        <div class="d-flex flex-column" style="font-size:8px;">
+                            @if (ViewContext.RouteData.Values["controller"].ToString() == "Reservas")
+                            {
+                                <a href="@Url.Action("Index", null, new { sortOrder = ViewBag.Origen })">
+                                    @getSortOrderIcon(ViewBag.Origen, "Origen")
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </th>
+                <th scope="col" class="text-truncate pr-4">
+                    <div class="d-flex align-items-center">
+                        <div class="mr-2">Destino</div>
+                        <div class="d-flex flex-column" style="font-size:8px;">
+                            @if (ViewContext.RouteData.Values["controller"].ToString() == "Reservas")
+                            {
+                                <a href="@Url.Action("Index", null, new { sortOrder = ViewBag.Destino })">
+                                    @getSortOrderIcon(ViewBag.Destino, "Destino")
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </th>
+                <th scope="col" class="text-truncate pl-4 text-right">
+                    <div class="d-flex align-items-center justify-content-end text-right">
+                        <div class="mr-2">Total</div>
+                        <div class="d-flex flex-column" style="font-size:8px;">
+                            @if (ViewContext.RouteData.Values["controller"].ToString() == "Reservas")
+                            {
+                                <a href="@Url.Action("Index", null, new { sortOrder = ViewBag.Total })">
+                                    @getSortOrderIcon(ViewBag.Total, "Total")
+                                </a>
+                            }
+                        </div>
+                    </div>
+                </th>
+                @if (ViewContext.RouteData.Values["controller"].ToString() == "Reservas")
+                {
+                    <th scope="col" class="text-truncate pl-4 text-right">Acciones</th>
+                }
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Count != 0)
+            {
+                @foreach (var Reserva in Model)
+                {
+                    @if (Reserva.Activa)
+                    {
+                        <tr>
+
+                            <td>
+                                <a href="@Url.Action("Detalle","Reservas", new {id= @Reserva.Id })" class="bold text-primary">
+                                    @Reserva.Codigo
+                                </a>
+                            </td>
+                            <td>@Reserva.TitularTarjeta</td>
+                            @getEstadoColoresYTexto(@Reserva.EstadoPagoId)
+                            <td class="text-truncate">
+                                @Reserva.FechaIda.Date.ToString("dd-MM-yyyy")
+                            </td>
+                            <td class="text-truncate">
+                                @Reserva.FechaVuelta.Date.ToString("dd-MM-yyyy")
+                            </td>
+                            <td>
+                                <div class="d-flex align-items-center">
+                                    <i class="mr-2 fas @Reserva.Plan.Icon.CodigoIcono"></i>
+                                    @Reserva.Plan.CodigoPlan
+                                </div>
+                            </td>
+                            <td class="text-truncate">@Reserva.Plan.Nombre</td>
+                            <td class="text-truncate">
+                                <img class="mr-2" src=@Url.Content("~/images/icons/globe/" + @Reserva.Origen.IconoNombre + ".svg") height="14" width="14" />
+                                @Reserva.Origen.Nombre
+                            </td>
+                            <td class="text-truncate">
+                                <img class="mr-2" src=@Url.Content("~/images/icons/globe/" + @Reserva.Destino.IconoNombre + ".svg") height="14" width="14" />
+                                @Reserva.Destino.Nombre
+                            </td>
+                            <td class="text-truncate text-right">$@Reserva.Total</td>
+                            @if (ViewContext.RouteData.Values["controller"].ToString() == "Reservas")
+                            {
+                                <td>
+                                    <div class="d-flex justify-content-end">
+                                        <a href="@Url.Action("Editar", new {id= @Reserva.Id })" class="btn btn-warning rounded-pill btn-sm mr-2">
+                                            <i class="fas fa-edit" style="font-size: 14px;"></i>
+                                        </a>
+                                        <button data-target="#deleteModal" data-toggle="modal" data-code="@Reserva.Codigo"
+                                                data-path="@Url.Action("Eliminar", new {id= @Reserva.Id })" class="btn btn-danger rounded-pill btn-sm deleteReserva">
+                                            <i class="fas fa-times px-1" style="font-size: 14px;"></i>
+                                        </button>
+                                    </div>
+                                </td>
+                            }
+                        </tr>
+                    }
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="11">
+                        <div class="w-100 h6 mt-5 text-center">No se encontraron resultados</div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<!-- Delete Modal-->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                    <i class="now-ui-icons ui-1_simple-remove"></i>
+                </button>
+                <div class="w-100 text-center">
+                    <svg viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round" stroke-linejoin="round" class="text-danger col-2">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="15" y1="9" x2="9" y2="15"></line>
+                        <line x1="9" y1="9" x2="15" y2="15"></line>
+                    </svg>
+                    <h4 class="title title-up ml-2">¡Atención!</h4>
+                </div>
+            </div>
+            <div class="modal-body">
+                <p class="text-center">
+                    ¿Está seguro que desea eliminar la reserva <span class="bold text-danger" id="codigoReservaSpan"></span>?
+                    <br>
+                    <span class="">Esta acción no se puede deshacer.</span>
+                </p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default btn-round" data-dismiss="modal">Cancelar</button>
+                <button type="button" class="btn btn-danger btn-round" data-dismiss="modal" id="btnContinueDelete">Eliminar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+@functions
+{
+    public string getEstadoColoresYTexto(int EstadoPagoId)
+    {
+        switch (EstadoPagoId)
+        {
+            case 1:
+                <td class="bold truncate text-danger">
+                    Rechazado
+                </td>
+                break;
+            case 2:
+                <td class="bold truncate text-warning">
+                    Procesando
+                </td>
+                break;
+            case 3:
+                <td class="bold truncate text-success">
+                    Confirmado
+                </td>
+                break;
+            default:
+                break;
+        }
+
+        return string.Empty;
+    }
+
+    public string getSortOrderIcon(string viewBagValue, string defaultOrder)
+    {
+
+        @if (viewBagValue == defaultOrder || viewBagValue == null)
+        {
+            <i class="fas fa-chevron-up order_icon order_asc" style="cursor: pointer;"></i>
+        }
+        else
+        {
+            <i class="fas fa-chevron-up order_icon order_asc" style="cursor: pointer; transform: rotate(180deg);"></i>
+        }
+
+        return string.Empty;
+    }
+}
+
