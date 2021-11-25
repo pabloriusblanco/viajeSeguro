@@ -5,7 +5,7 @@
 <div class="sidebar" data-color="viajeSeguro">
 
     <div class="logo">
-        <a href="/" class="simple-text justify-content-center">
+        <a href="@Url.Action("Index", "Home")" class="simple-text justify-content-center">
             <img src='@Url.Content("~/images/ViajaSeguroLogo.png")'
                  alt="Viaja Seguro logo" class="px-2">
         </a>
@@ -51,7 +51,7 @@
             }
 
 
-            <li>
+            @*<li>
                 <a data-toggle="collapse" href="#configurationDrop">
                     <i class="now-ui-icons ui-1_settings-gear-63"></i>
                     <p>
@@ -76,9 +76,9 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li>*@
             <li>
-                <a>
+                <a href="@Url.Action("Logout", "Account")">
                     <i class="now-ui-icons arrows-1_minimal-left"></i>
                     <p>Salir</p>
                 </a>

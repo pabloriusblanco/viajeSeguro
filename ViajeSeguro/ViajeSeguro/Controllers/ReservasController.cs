@@ -13,9 +13,11 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using X.PagedList;
 using X.PagedList.Mvc.Core;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ViajeSeguro.Controllers
 {
+    [Authorize]
     public class ReservasController : Controller
     {
         #region InyeccionDependenciaHosting
@@ -28,9 +30,9 @@ namespace ViajeSeguro.Controllers
         }
         #endregion
 
-        #region DBInizialicion
+
         static List<Reserva> ListaReserva;
-        private static int pageSize = 5;
+        private static int pageSize = 10;
         public static int currentPage = 1;
         private List<Reserva> GetReservas()
         {
@@ -39,6 +41,7 @@ namespace ViajeSeguro.Controllers
                 .Include(x => x.Destino)
                 .Include(x => x.Plan)
                 .Include(x => x.Plan.Icon)
+                .Where(x => x.Activa == true)
                 .ToList();
         }
 
@@ -49,7 +52,7 @@ namespace ViajeSeguro.Controllers
                 .Include(x => x.Pasajero)
                 .ToList();
         }
-        #endregion
+
 
         #region IndexView
         public IActionResult Index(int? pageNumber,string sortOrder, string Codigo, string Apellido, string Precio)
@@ -365,8 +368,6 @@ namespace ViajeSeguro.Controllers
         {
             Reserva ReservaNueva = reservaSubmit;
             //Modelos
-            //ReservaNueva.Origen = (Region)database.Regions.Where(x => x.Id == reservaSubmit.Origen.Id).FirstOrDefault();
-            //ReservaNueva.Destino = (Region)database.Regions.Where(x => x.Id == reservaSubmit.Destino.Id).FirstOrDefault();
             ReservaNueva.Plan = (Plan)database.Plans.Where(x => x.Id == reservaSubmit.PlanId).FirstOrDefault();
 
             //Imagenes

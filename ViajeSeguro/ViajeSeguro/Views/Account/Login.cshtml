@@ -1,0 +1,63 @@
+﻿@model LoginViewModel;
+
+@{
+    ViewData["Title"] = "Login - ViajeSeguro";
+    Layout = "_Base";
+}
+
+@if (!Html.ViewData.ModelState.IsValid)
+{
+    <div class="alert alert-danger position-absolute col-md-12 alert_safe fixed-top" style="z-index:9999;">
+        <button type="button" aria-hidden="true" class="close" data-dismiss="alert" id="buttonCloseAlert">
+            <i class="now-ui-icons ui-1_simple-remove"></i>
+        </button>
+        <div>
+            <div class="mb-2">Por favor revise los siguientes campos:</div>
+            <div class="">@Html.ValidationSummary()</div>
+        </div>
+    </div>
+}
+
+<div class="wrapper wrapper-full-page ">
+    <div class="full-page login-page section-image login_image" filter-color="black">
+        <div class="content">
+            <div class="container">
+                <div class="col-md-4 ml-auto mr-auto">
+                    @using (@Html.BeginForm("Login", "Account", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                    {
+                    <div class="card card-login card-plain">
+                        <div class="card-header ">
+                            <div class="logo d-flex flex-column justify-content-center align-items-center">
+                                <h3 class="text-white bold mb-0">Backoffice</h3>
+                                <img src='@Url.Content("~/images/ViajaSeguroLogo.png")' alt="viajeseguro logo" class="sidebarLogo py-3">
+                            </div>
+                        </div>
+                        <div class="card-body ">
+                            <div class="input-group no-border form-control-lg">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="fas fa-at"></i>
+                                    </div>
+                                </div>
+                                @Html.TextBoxFor(x => x.Email, new { @class = "form-control", @placeholder = "Email...", @autocomplete = "off", @type = "email" })
+                            </div>
+                            <div class="input-group no-border form-control-lg pt-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">
+                                        <i class="fas fa-unlock"></i>
+                                    </div>
+                                </div>
+                                @Html.TextBoxFor(x => x.Password, new { @class = "form-control", @placeholder = "Password...", @autocomplete = "off", @type = "password" })
+                            </div>
+                        </div>
+                        <div class="card-footer ">
+                            <button type="submit" class="btn btn-primary btn-round btn-lg btn-block mb-3">Login</button>
+                            <a href="@Url.Action("Register", "Account")" class="btn btn-outline-secondary btn-round btn-lg btn-block mb-3">Registro</a>
+                        </div>
+                    </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

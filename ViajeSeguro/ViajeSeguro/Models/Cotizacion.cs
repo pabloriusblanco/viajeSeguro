@@ -10,7 +10,6 @@ namespace ViajeSeguro.Models
     public class Cotizacion
     {
         public int Id { get; set; }
-
         public int ReservaId { get; set; }
         public virtual Reserva Reserva { get; set; }
         public int PasajeroId { get; set; }

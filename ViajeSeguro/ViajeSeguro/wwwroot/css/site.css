@@ -4799,7 +4799,8 @@ Created using IcoMoon - icomoon.io
     padding-right: .5rem; }
 
 .map {
-  height: 330px; }
+  height: 330px;
+}
 
 .card-contributions .card-description {
   max-width: 350px;
@@ -9957,3 +9958,10 @@ be a descendant of the grid when it is being dragged.
     background-color: #00B4D8;
 }
 
+.section-image {
+    background-image: url("../images/loginbackground.jpg");
+    background-size: cover;
+    background-position: center center;
+    position: relative;
+    width: 100%;
+}

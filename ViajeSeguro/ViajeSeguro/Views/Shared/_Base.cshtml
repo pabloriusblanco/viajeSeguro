@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
@@ -19,6 +19,12 @@
 </head>
 
 <body class="main sidebar-mini">
+    @if (ViewContext.RouteData.Values["controller"].ToString() == "Account")
+    {
+        @RenderBody()
+    }
+    else
+    {
     <div class="wrapper " id="main_wrapper">
         @await Html.PartialAsync("_SideMenu")
         <div class="main-panel">
@@ -27,6 +33,7 @@
             @await Html.PartialAsync("_Footer")
         </div>
     </div>
+    }
 
     <script src='@Url.Content("~/js/core/jquery.min.js")' type="text/javascript"></script>
     <script src='@Url.Content("~/js/core/popper.min.js")' type="text/javascript"></script>

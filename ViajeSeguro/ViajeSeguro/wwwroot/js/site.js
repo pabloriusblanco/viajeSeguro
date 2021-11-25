@@ -2045,7 +2045,7 @@ function debounce(func, wait, immediate) {
 (function () {
   isWindows = navigator.platform.indexOf('Win') > -1 ? true : false;
 
-  if (isWindows && window.location.pathname != "/login") {
+    if (isWindows && window.location.pathname.includes('Account') != true ) {
     // if we are on windows OS we activate the perfectScrollbar function
     var ps = new PerfectScrollbar('.sidebar-wrapper');
     var ps2 = new PerfectScrollbar('.main-panel');
@@ -2367,7 +2367,7 @@ if (alertClassList.length > 0) {
 /*!***************************************************!*\
   !*** ./resources/js/viajeSeguroBack JS/chartDash.js ***!
   \***************************************************/
-/***/ (() => {
+/***/ (() => {       
 
 if ($(location).attr('pathname') == "/") var mapData = {
   "NA": getRegionsValue("north-america"),
@@ -2376,9 +2376,10 @@ if ($(location).attr('pathname') == "/") var mapData = {
   "SA": getRegionsValue("south-america"),
   "AF": getRegionsValue("globe-africa"),
   "AS": getRegionsValue("globe-asia"),
-  "OC": getRegionsValue("oceania"),
-  "MX": getRegionsValue("nacional")
-};
+  "OC": getRegionsValue("oceania")
+        };
+
+        console.log(mapData)
 $('#worldMap').vectorMap({
   map: 'continents_mill',
   backgroundColor: "transparent",
@@ -2412,9 +2413,9 @@ $('#worldMap').vectorMap({
 });
 
 function getRegionsValue(code) {
-          //value = document.getElementById(code).innerHTML;
-          //return value.replace(/\D/g, "");
-        }
+    value = document.getElementById(code).innerHTML;
+    return value.replace(/\D/g, "");
+}
 
 
 

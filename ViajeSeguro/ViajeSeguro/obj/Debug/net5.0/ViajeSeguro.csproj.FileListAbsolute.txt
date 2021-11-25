@@ -23,8 +23,6 @@ C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Micros
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Connections.Abstractions.dll
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Microsoft.AspNetCore.CookiePolicy.dll
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cors.dll
-C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cryptography.Internal.dll
-C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.Abstractions.dll
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.dll
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Microsoft.AspNetCore.DataProtection.Extensions.dll
@@ -109,8 +107,6 @@ C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Micros
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Microsoft.Extensions.Hosting.Abstractions.dll
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Microsoft.Extensions.Hosting.dll
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Microsoft.Extensions.Http.dll
-C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Microsoft.Extensions.Identity.Core.dll
-C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Microsoft.Extensions.Identity.Stores.dll
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Microsoft.Extensions.Localization.Abstractions.dll
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Microsoft.Extensions.Localization.dll
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\refs\Microsoft.Extensions.Logging.Abstractions.dll
@@ -339,7 +335,6 @@ C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\obj\Debug\net5.0\ViajeSeguro
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\obj\Debug\net5.0\ViajeSeguro.TagHelpers.output.cache
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\obj\Debug\net5.0\ViajeSeguro.RazorCoreGenerate.cache
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
-C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\obj\Debug\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\obj\Debug\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
@@ -444,3 +439,10 @@ C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\runtimes\wi
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\JetBrains.Annotations.dll
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\X.PagedList.dll
 C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\X.PagedList.Mvc.Core.dll
+C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.Internal.dll
+C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\Microsoft.Extensions.Identity.Core.dll
+C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\bin\Debug\net5.0\Microsoft.Extensions.Identity.Stores.dll
+C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\obj\Debug\net5.0\Razor\Views\Account\Login.cshtml.g.cs
+C:\Users\Pablo\source\repos\ViajeSeguro\ViajeSeguro\obj\Debug\net5.0\Razor\Views\Account\Register.cshtml.g.cs

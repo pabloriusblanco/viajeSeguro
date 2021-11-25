@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using ViajeSeguro.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 
 namespace ViajeSeguro
 {
@@ -26,9 +27,23 @@ namespace ViajeSeguro
         {
             services.AddControllersWithViews();
             services.AddDbContext<ViajeSeguroDBContext>(
-                o=>
-                o.UseSqlServer(Configuration.GetConnectionString("viajeSeguroCS"))
+                options=>
+                options.UseSqlServer(Configuration.GetConnectionString("viajeSeguroCS"))
             );
+            #region Password Options
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequiredLength = 4;
+                options.Password.RequiredUniqueChars = 0;
+                options.Password.RequireLowercase = false;
+                options.Password.RequireUppercase = false;
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+            });
+            #endregion
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<ViajeSeguroDBContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -45,6 +60,8 @@ namespace ViajeSeguro
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

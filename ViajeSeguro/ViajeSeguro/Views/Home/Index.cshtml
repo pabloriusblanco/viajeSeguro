@@ -62,85 +62,96 @@
             </div>
         </div>
 
-        @*GRAPH*@
+        
         <div class="col-md-12">
             <div class="card padding_30">
                 <div class="card-header text-center">
                     <div class="row">
                         <div class="col-12">
-                            <h6 class="card-title text-left">Reservas por Región</h6>
+                            <h6 class="card-title text-left">Origen de Reservas por Región</h6>
                         </div>
                     </div>
                 </div>
                 <div class="card-body d-flex">
                     <div class="col-5 pl-0">
-                        <div class="table-responsive">
-                            <table class="table">
-                                <tbody>
-                                    <tr>
-                                        <td class="text-left table_textContent">
-                                            <img class="mr-4" src="" alt="" height="14">
-                                            [Nombre region]
-                                        </td>
-                                        <td class="text-right table_textContent" id="">
-                                            [Cantidad Reservas]
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-left table_textContent">
-                                            <img class="mr-4" src="" alt="" height="14">
-                                            [Nombre region]
-                                        </td>
-                                        <td class="text-right table_textContent" id="">
-                                            [Cantidad Reservas]
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-left table_textContent">
-                                            <img class="mr-4" src="" alt="" height="14">
-                                            [Nombre region]
-                                        </td>
-                                        <td class="text-right table_textContent" id="">
-                                            [Cantidad Reservas]
-                                        </td>
-                                    <tr>
-                                        <td class="text-left table_textContent">
-                                            <img class="mr-4" src="" alt="" height="14">
-                                            [Nombre region]
-                                        </td>
-                                        <td class="text-right table_textContent" id="">
-                                            [Cantidad Reservas]
-                                        </td>
-                                    <tr>
-                                        <td class="text-left table_textContent">
-                                            <img class="mr-4" src="" alt="" height="14">
-                                            [Nombre region]
-                                        </td>
-                                        <td class="text-right table_textContent" id="">
-                                            [Cantidad Reservas]
-                                        </td>
-                                    <tr>
-                                        <td class="text-left table_textContent">
-                                            <img class="mr-4" src="" alt="" height="14">
-                                            [Nombre region]
-                                        </td>
-                                        <td class="text-right table_textContent" id="">
-                                            [Cantidad Reservas]
-                                        </td>
-                                    <tr>
-                                        <td class="text-left table_textContent">
-                                            <img class="mr-4" src="" alt="" height="14">
-                                            [Nombre region]
-                                        </td>
-                                        <td class="text-right table_textContent" id="">
-                                            [Cantidad Reservas]
-                                        </td>
-                                </tbody>
-                            </table>
-                        </div>
+
+                            <div class="table-responsive pb-0 mt-2">
+                                <table class="table m-0">
+                                    <tbody class="">
+                                        <tr>
+                                            <td class="text-left table_textContent">
+                                                <img class="mr-4" src=@Url.Content("~/images/icons/globe/NA.svg") alt="" height="14">
+                                                América del Norte
+                                            </td>
+                                            <td class="text-right table_textContent" id="north-america">
+                                                @ViewBag.ReservasRegion["NA"]
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left table_textContent">
+                                                <img class="mr-4" src=@Url.Content("~/images/icons/globe/EU.svg") alt="" height="14">
+                                                Europa
+                                            </td>
+                                            <td class="text-right table_textContent" id="globe-europe">
+                                                @ViewBag.ReservasRegion["EU"]
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left table_textContent">
+                                                <img class="mr-4" src=@Url.Content("~/images/icons/globe/CA.svg") alt="" height="14">
+                                                América Central y Caribe
+                                            </td>
+                                            <td class="text-right table_textContent" id="central-america">
+                                                @ViewBag.ReservasRegion["CA"]
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left table_textContent">
+                                                <img class="mr-4" 
+                                                     src=@Url.Content("~/images/icons/globe/SA.svg")
+                                                     alt="" height="14">
+                                                América del Sur
+                                            </td>
+                                            <td class="text-right table_textContent" id="south-america">
+                                                @ViewBag.ReservasRegion["SA"]
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left table_textContent">
+                                                <img class="mr-4" src=@Url.Content("~/images/icons/globe/AF.svg") alt="" height="14">
+                                                África
+                                            </td>
+                                            <td class="text-right table_textContent" id="globe-africa">
+                                                @ViewBag.ReservasRegion["AF"]
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left table_textContent">
+                                                <img class="mr-4" src=@Url.Content("~/images/icons/globe/AS.svg") alt="" height="14">
+                                                Asia
+                                            </td>
+                                            <td class="text-right table_textContent" id="globe-asia">
+                                                @ViewBag.ReservasRegion["AS"]
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="text-left table_textContent">
+                                                <img class="mr-4" src=@Url.Content("~/images/icons/globe/OC.svg") alt="" height="14">
+                                                Oceanía
+                                            </td>
+                                            <td class="text-right table_textContent" id="oceania">
+                                                @ViewBag.ReservasRegion["OC"]
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+
                     </div>
-                    <div class="col-7 pl-5 pb-4">
-                        <div class="w-100 h-100 bg-dark text-white d-flex align-items-center justify-content-center h3">Grafico?</div>
+                    <div class="col-7 pl-5 pr-0">
+                        <div class="w-100 h-100 text-white d-flex align-items-center justify-content-center mb-0">
+                                <div id="worldMap" class="map" style="width: 920px;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
